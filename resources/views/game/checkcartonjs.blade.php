@@ -41,7 +41,6 @@
 					carton : $("#input_numero_carton").val()
 				},
 				success:function( respuesta ){
-					console.log(respuesta);
 					$("#container-carton").empty();
 					for (var i = 0; i < respuesta.carton.length; i++) {
 						numero_actual = '<img src="{!! asset("img/iconfinder_hexagon-polygon-screw-block.png") !!}" alt="">'
@@ -53,7 +52,6 @@
 					}
 
 					carton_lleno = 0;linea_1 = 0;linea_2 = 0; linea_3 = 0;
-					console.log(respuesta.numeros_sorteados);
 					for (var i = 0; i < respuesta.numeros_sorteados.length; i++) {	
 						console.log(respuesta.numeros_sorteados[i]);
 						if(respuesta.carton.includes(parseInt(respuesta.numeros_sorteados[i]))){
@@ -109,6 +107,11 @@
 
 					$(".sound_bingo_correcta").click(function(){
 						document.getElementById("carton_lleno").play();
+						$("#banner").hide();
+						$("#bg").hide();
+						$("#bg_linea_win").hide();
+						$("#backGame").show();
+						$("#bg_bingo_win").show();
 					});
 
 					$(".sound_bingo_incorrecto").click(function(){
@@ -121,11 +124,18 @@
 
 					$(".sound_linea_correcta").click(function(){
 						document.getElementById("carton_linea").play();
+						$("#banner").hide();
+						$("#bg").hide();
+						$("#bg_bingo_win").hide();
+						$("#backGame").show();
+						$("#bg_linea_win").show();
 					});
 
 
 				}
 			});
 		}
+
+
 	})
 </script>

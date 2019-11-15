@@ -338,83 +338,96 @@ class CartonController extends Controller
 
     public static  function CartonSerie()
     {   
-        $cartones = [];
-        $numbers = [];
-        $maxValue = 90;
-        $CartonController = new CartonController();
+        $fin = true;
+        while($fin){
+            $cartones = [];
+            $numbers = [];
+            $maxValue = 90;
+            $CartonController = new CartonController();
 
-        $columna0=([1,2,3,4,5,6,7,8,9,10]);
-        $columna1=([11,12,13,14,15,16,17,18,19,20]);
-        $columna2=([21,22,23,24,25,26,27,28,29,30]);
-        $columna3=([31,32,33,34,35,36,37,38,39,40]);
-        $columna4=([41,42,43,44,45,46,47,48,49,50]);
-        $columna5=([51,52,53,54,55,56,57,58,59,60]);
-        $columna6=([61,62,63,64,65,66,67,68,69,70]);
-        $columna7=([71,72,73,74,75,76,77,78,79,80]);
-        $columna8=([81,82,83,84,85,86,87,88,89,90]);
-        shuffle($columna0);shuffle($columna1);shuffle($columna3);shuffle($columna4);
-        shuffle($columna5);shuffle($columna6);shuffle($columna7);shuffle($columna8);
-        shuffle($columna2);
+            $columna0=([1,2,3,4,5,6,7,8,9,10]);
+            $columna1=([11,12,13,14,15,16,17,18,19,20]);
+            $columna2=([21,22,23,24,25,26,27,28,29,30]);
+            $columna3=([31,32,33,34,35,36,37,38,39,40]);
+            $columna4=([41,42,43,44,45,46,47,48,49,50]);
+            $columna5=([51,52,53,54,55,56,57,58,59,60]);
+            $columna6=([61,62,63,64,65,66,67,68,69,70]);
+            $columna7=([71,72,73,74,75,76,77,78,79,80]);
+            $columna8=([81,82,83,84,85,86,87,88,89,90]);
+            shuffle($columna0);shuffle($columna1);shuffle($columna3);shuffle($columna4);
+            shuffle($columna5);shuffle($columna6);shuffle($columna7);shuffle($columna8);
+            shuffle($columna2);
 
-        for ($numeroCarton=0; $numeroCarton < 6; $numeroCarton++) { 
-            $cartonSort = [];
-            $numbersCarton = [];
+            for ($numeroCarton=0; $numeroCarton < 6; $numeroCarton++) { 
+                $cartonSort = [];
+                $numbersCarton = [];
 
-            for ($i=0; $i < 3; $i++) { 
+                for ($i=0; $i < 3; $i++) { 
 
-                for ($indexCarton=0; $indexCarton < 9; $indexCarton++){
-                    $arrayColumnas["columna$indexCarton"] = ${"columna$indexCarton"};
-                }
-
-                if($numeroCarton > 3){
-                    asort($arrayColumnas);
-
-                    $index = 0;$columna = [];
-                    foreach ($arrayColumnas as $key => $value) {
-                        $numero_columna = (int)str_replace('columna', '', $key);
-                        if(count($columna) < 4){
-                            $columna[] = $numero_columna;
-                        }
-                    }
-                    //dd($cartones);
-                }else{
-                    $columna = [0,1,2,3,4,5,6,7,8];
-                    shuffle($columna);shuffle($columna);
-                    for ($z=0; $z < 5; $z++) { 
-                        unset($columna[$z]);
-                        $columna = array_values($columna);
-                    } 
-                    
-                }
-                  
-                for ($indexCarton=0; $indexCarton < 9; $indexCarton++) { 
-
-                    $flag_position = 0;
-                    foreach ($columna as $value) {
-                        if($indexCarton == $value){
-                            $flag_position = 1;  
-                        }
+                    for ($indexCarton=0; $indexCarton < 9; $indexCarton++){
+                        $arrayColumnas["columna$indexCarton"] = ${"columna$indexCarton"};
                     }
 
-                    if($flag_position == 1){
-                        $cartonSort[] =  0;
+                    if($numeroCarton > 3){
+                        asort($arrayColumnas);
+
+                        $index = 0;$columna = [];
+                        foreach ($arrayColumnas as $key => $value) {
+                            $numero_columna = (int)str_replace('columna', '', $key);
+                            if(count($columna) < 4){
+                                $columna[] = $numero_columna;
+                            }
+                        }
+                        //dd($cartones);
                     }else{
-                        if(isset(${"columna$indexCarton"}[0])){
-                            $cartonSort[] =  ${"columna$indexCarton"}[0];
-                            unset(${"columna$indexCarton"}[0]);
-                            ${"columna$indexCarton"} = array_values(${"columna$indexCarton"});  
-                        }else{
-                            $cartonSort[] =  0;
-                        }
+                        $columna = [0,1,2,3,4,5,6,7,8];
+                        shuffle($columna);shuffle($columna);
+                        for ($z=0; $z < 5; $z++) { 
+                            unset($columna[$z]);
+                            $columna = array_values($columna);
+                        } 
+                        
                     }
+                      
+                    for ($indexCarton=0; $indexCarton < 9; $indexCarton++) { 
 
+                        $flag_position = 0;
+                        foreach ($columna as $value) {
+                            if($indexCarton == $value){
+                                $flag_position = 1;  
+                            }
+                        }
+
+                        if($flag_position == 1){
+                            $cartonSort[] =  0;
+                        }else{
+                            if(isset(${"columna$indexCarton"}[0])){
+                                $cartonSort[] =  ${"columna$indexCarton"}[0];
+                                unset(${"columna$indexCarton"}[0]);
+                                ${"columna$indexCarton"} = array_values(${"columna$indexCarton"});  
+                            }else{
+                                $cartonSort[] =  0;
+                            }
+                        }
+
+                    }
+                }
+                
+                $cartones[] = $cartonSort;
+                
+            }
+            $numerosFaltantes = [];
+
+            for ($indexCarton=0; $indexCarton < 9; $indexCarton++){
+                foreach (${"columna$indexCarton"} as $value) {
+                    $numerosFaltantes[] = $value;
                 }
             }
-            
-            $cartones[] = $cartonSort;
-            
-        }
 
+            if(count($numerosFaltantes) <= 0){
+                $fin = false;
+            }
+        }
         return $cartones ;
 
     }

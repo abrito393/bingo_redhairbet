@@ -11,7 +11,7 @@ class SorteoController extends Controller
 
     public function PlayGame(Request $request)
     {
-        set_time_limit(300);
+        //set_time_limit(300);
 
         $GenerarCartones = new CartonController();
         $dividirNumeros = array_chunk($request->numeros, 9);
@@ -60,7 +60,7 @@ class SorteoController extends Controller
             $count = $carton->codigo;
             $count++;
         /*Generar Series Cartones*/
-            for ($i=0; $i < 3; $i++) { 
+            for ($i=0; $i < 10; $i++) { 
                 /*Genera el cartones de la serie*/
                 $GenerarCartones = new CartonController();
                 $serie_generadas = $GenerarCartones::GenerarSerie($sorteo->id);

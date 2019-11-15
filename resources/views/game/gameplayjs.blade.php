@@ -126,6 +126,16 @@
 		});
 
 		$("#close_modal_check").click(function(){
+
+		});
+
+		$("#backGame").click(function(){
+			$("#bg_linea_win").hide();
+			$("#bg_bingo_win").hide();
+			$("#backGame").hide();
+			$("#banner").show();
+			$("#bg").show();
+
 			document.getElementById("carton_lleno").pause();
 			document.getElementById("intento_fallido").pause();
 			document.getElementById("carton_linea").pause();
@@ -133,8 +143,7 @@
 			document.getElementById("carton_lleno").currentTime = 0;
 			document.getElementById("intento_fallido").currentTime = 0;
 			document.getElementById("carton_linea").currentTime = 0;
-
-		})
+		});
 
 		$("#stop").click(function(){
 			StopGame();
