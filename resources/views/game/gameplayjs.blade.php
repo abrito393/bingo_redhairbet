@@ -6,6 +6,7 @@
 		var token = $( "input[name='_token']" ).val();
 		var numero_generado;
 		var numero_actual = '0';
+
 		@if(isset($numero_sorteo) && $numero_sorteo != 0)
 			var sorteo_id = parseInt("{{$numero_sorteo}}");
 			searchSorteo();
@@ -20,14 +21,6 @@
 		function inicializar_juego(argument) {
 			
 			var urlx = "{{route('PlayGame')}}";
-			/*
-			var datos = new Array();
-			datos.push({
-			'nombre' : $( "#nombre" ).val(),
-			'descripcion' : $( "#descripcion" ).val(),
-			'especie_id' : $( "#especie_id" ).val()
-			});
-			var data = JSON.parse(JSON.stringify(datos));*/
 			$.ajax({
 				url: urlx,
 				type: 'POST',
@@ -37,7 +30,6 @@
 					numeros : numeros
 				},
 				success:function( respuesta ){
-					console.log(respuesta);
 					sorteo_id = respuesta.sorte_id;
 					window.location.href = "/bingo?sorteo="+sorteo_id;
 				}
@@ -45,7 +37,18 @@
 				
 		}
 
-		
+	 	$("#play").click(function(){
+			$("#play").hide();
+		});
+
+		$("#check_line").click(function(){
+				$("#play").show();
+		});
+
+		$("#backGame").click(function(){
+			$("#play").show();
+		});
+
 		$("#GenerateCatones").click(function(){
 			if(sorteo_id == 0){
 				alert('Debe Dar click en la opcion Inicializar');
@@ -175,12 +178,24 @@
 		    	$("#"+parseInt(numeros[0])).css("color", "white");
 		    	GetAudio(parseInt(numeros[0]));
 
+		    	insertar_numero(numeros[0]);
 		    	$("#numeros_sorteados").text(parseInt(numeros[0]));
 		    	numero_actual = parseInt(numeros[0]);
 		    	sorteo.push(parseInt(numeros[0]));
 				numeros.shift();
-				insertar_numero(numeros);
+				
 			}
+		}
+
+		function RellenarTablero(numeros) {
+			var lastNumber = 0;
+			for (var i = 0; i < numeros.length; i++) {
+				$("#"+numeros[i]).css("color", "black");
+				$("#"+numeros[i]).css("background-color", "#00ff6e");
+				lastNumber = numeros[i];
+			}
+			$("#numeros_sorteados").text(parseInt(lastNumber));
+			$("#numeros_sorteados").show();
 		}
 
 		function insertar_numero(numero) {
@@ -191,7 +206,7 @@
 				headers: {'X-CSRF-TOKEN': token},
 				datatype: 'json',
 				data:{
-					numeros : sorteo,
+					numeros : numero,
 					sorteo : sorteo_id
 				},
 				success:function( respuesta ){
@@ -200,6 +215,7 @@
 		}
 
 		function searchSorteo() {
+			
 			var urlx = "{{route('searchSorteo')}}";
 			$.ajax({
 				url: urlx,
@@ -210,12 +226,47 @@
 					sorteo : sorteo_id
 				},
 				success:function( respuesta ){
-					numeros = respuesta;
+					numeros = respuesta.numeros_sorteados;
+					if(respuesta.numeros_jugados.length > 0){
+						var dialogo = confirm("Desea Continuar con el Sorteo?");
+						if (dialogo == true) {
+							numeros = respuesta.numeros_no_sorteados;
+							RellenarTablero(respuesta.numeros_jugados);
+						} else {
+							InicializarNumerosJugados();
+							numeros = respuesta.numeros_sorteados;
+						}
+					}
+					
 				}
 			});
 		}
 
+		function InicializarNumerosJugados() {
+			var urlx = "{{route('InicializarNumerosJugados')}}";
+			$.ajax({
+				url: urlx,
+				type: 'GET',
+				headers: {'X-CSRF-TOKEN': token},
+				datatype: 'json',
+				data:{
+					sorteo : sorteo_id
+				},
+				success:function( respuesta ){}
+			});
+		}
+
 		
+		function ConfirmacionBingo() {
+		  var txt;
+		  var r = confirm("Desea Continuar con el Sorteo?");
+		  if (r == true) {
+		    txt = "You pressed OK!";
+		  } else {
+		    txt = "You pressed Cancel!";
+		  }
+
+		}
 
 		function PlayGame() {
 			GenerarNumero();

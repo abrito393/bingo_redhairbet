@@ -14,10 +14,10 @@
 </div>
 <div class="row" align="center">
 	<div class="col-6">
-		<button id="sound_linea" class="btn btn-success btn-block" type="button">LINEA</button>
+		<button id="sound_linea" class="btn btn-success btn-block" type="button">VERIFICACION DE LINEA</button>
 	</div>
 	<div class="col-6">
-		<button id="sound_bingo"  class="btn btn-warning btn-block" type="button">BINGO</button>
+		<button id="sound_bingo"  class="btn btn-warning btn-block" type="button">VERIFICACION DE BINGO</button>
 	</div>
 </div>
 <h2 align="center">CARTON</h2>
@@ -28,7 +28,7 @@
 
 <div class="row" align="center">
 	<div class="col-12">
-		<button id="close_modal_check" class="btn btn-warning" onclick="document.getElementById('id01').style.display='none'" type="button">Cerrar</button>
+		<button id="close_modal_check" class="btn btn-warning closeCheck" onclick="document.getElementById('id01').style.display='none'" type="button">Cerrar</button>
 	</div>
 </div><br>
 

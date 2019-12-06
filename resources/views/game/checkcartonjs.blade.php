@@ -19,6 +19,12 @@
 			print_carton();
 		});
 
+		$(".closeCheck").click(function(){
+			print_carton();
+		});
+
+
+
 		function print_carton() {
 			if(sorteo_id == 0){
 				alert('Debe Dar click en la opcion Inicializar');
@@ -107,6 +113,7 @@
 
 					$(".sound_bingo_correcta").click(function(){
 						document.getElementById("carton_lleno").play();
+						$("#play").hide();
 						$("#banner").hide();
 						$("#bg").hide();
 						$("#bg_linea_win").hide();
@@ -115,15 +122,18 @@
 					});
 
 					$(".sound_bingo_incorrecto").click(function(){
-						document.getElementById("intento_fallido").play();
+						document.getElementById("bingo_incorrecto").play();
+						$("#play").show();
 					});
 
 					$(".sound_linea_incorrecta").click(function(){
-						document.getElementById("intento_fallido").play();
+						document.getElementById("linea_incorrecta").play();
+						$("#play").show();
 					});
 
 					$(".sound_linea_correcta").click(function(){
 						document.getElementById("carton_linea").play();
+						$("#play").hide();
 						$("#banner").hide();
 						$("#bg").hide();
 						$("#bg_bingo_win").hide();

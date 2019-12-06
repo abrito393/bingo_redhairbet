@@ -10,10 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/SimulateGame', 'SorteoController@SimulateGame')->name('SimulateGame');
 
 /*GAME*/
 
@@ -26,6 +28,7 @@ Route::get('/', function () {
 
 	//SORTEOS
 	Route::get('/SimulateGame', 'SorteoController@SimulateGame')->name('SimulateGame');
+	Route::get('/InicializarNumerosJugados', 'SorteoController@InicializarNumerosJugados')->name('InicializarNumerosJugados');
 	Route::get('/ViewCartones/{id?}', 'SorteoController@ViewCartones')->name('ViewCartones');
 	Route::get('/ViewSeries/{id?}', 'SorteoController@ViewSeries')->name('ViewSeries');
 	Route::post('/PlayGame', 'SorteoController@PlayGame')->name('PlayGame');
@@ -33,6 +36,8 @@ Route::get('/', function () {
 	Route::get('/checkCarton/{id?}', 'SorteoController@checkCarton')->name('checkCarton');
 	Route::post('/NumerosJugado', 'SorteoController@NumerosJugado')->name('NumerosJugado');
 	Route::post('/searchSorteo', 'SorteoController@searchSorteo')->name('searchSorteo');
+
+
 
 	//ADMIN - SORTEOS
 
@@ -47,4 +52,5 @@ Route::get('/', function () {
 
 Route::get('/GenerarCarton', 'CartonController@GenerarCarton')->name('GenerarCarton');
 Route::get('/bingo', 'CartonController@bingo')->name('bingo');
+Route::get('/', 'CartonController@bingo')->name('bingo');
 

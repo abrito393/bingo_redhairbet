@@ -39,7 +39,7 @@ class SorteoController extends Controller
 
 
         /*Generar Cartones*/
-            for ($i=0; $i < 23; $i++) { 
+            for ($i=0; $i < 8; $i++) { 
                 /*Genera el carton*/
                 $carton_completo = $GenerarCartones::GenerarCarton($request,90,5);
                 $carton_divido = array_chunk($carton_completo,9);
@@ -60,7 +60,7 @@ class SorteoController extends Controller
             $count = $carton->codigo;
             $count++;
         /*Generar Series Cartones*/
-            for ($i=0; $i < 10; $i++) { 
+            for ($i=0; $i < 20; $i++) { 
                 /*Genera el cartones de la serie*/
                 $GenerarCartones = new CartonController();
                 $serie_generadas = $GenerarCartones::GenerarSerie($sorteo->id);
@@ -147,27 +147,60 @@ class SorteoController extends Controller
     public function searchSorteo(Request $request)
     {
         $sorteo = sorteo::find($request->sorteo);
-        return json_decode($sorteo->numeros_sorteados);
+        $numeros_no_sorteados = [];
+        $arrayNumerosSorteados = json_decode($sorteo->numeros_sorteados);
+        $arrayNumerosJugados = json_decode($sorteo->numeros_jugados);
+
+        if(is_null(json_decode($sorteo->numeros_jugados))){
+            $sorteo->numeros_jugados = "[]";
+        }
+
+        if(!is_null($arrayNumerosJugados)){
+            foreach ($arrayNumerosSorteados as $NumerosSorteado ) {
+                if (!in_array($NumerosSorteado, $arrayNumerosJugados)) {
+                    $numeros_no_sorteados[] = $NumerosSorteado;
+                } 
+            }
+        }
+
+        return [ 'numeros_sorteados' => json_decode($sorteo->numeros_sorteados) , 'numeros_jugados' => json_decode($sorteo->numeros_jugados) , 'numeros_no_sorteados' => $numeros_no_sorteados ];
     }
 
     public function NumerosJugado(Request $request)
     {
         $sorteo = sorteo::find($request->sorteo);
-        $sorteo->numeros_jugados = json_encode($request->numeros);
+
+        if(is_null(json_decode($sorteo->numeros_jugados))){
+            $sorteo->numeros_jugados = "[]";
+        }
+
+        $arrayNumerosJugados = json_decode($sorteo->numeros_jugados);
+        array_push($arrayNumerosJugados, $request->numeros);
+        $sorteo->numeros_jugados = json_encode($arrayNumerosJugados);
         $sorteo->save();
         return 1;
     }
+
+    public function InicializarNumerosJugados(Request $request)
+    {
+        $sorteo = sorteo::find($request->sorteo);
+        $sorteo->numeros_jugados = null;
+        $sorteo->save();
+        return 1;
+    }
+
+    
 
 
     public function SimulateGame(Request $request)
     {
         /*CHECK CARTON FULL */
         $sorteo = sorteo::find($request->sorteo);
-        $cartones = $sorteo->cartones;
+        $cartones = $sorteo->series;
         $numeros_sorteados = json_decode($sorteo->numeros_sorteados);
         $cartonesSmulados = [];
         
-        
+        /*
         foreach ($cartones as $carton ) {
             $contadorNumeros = 0;
             $carton_array = array_unique(json_decode($carton->numeros));
@@ -178,15 +211,15 @@ class SorteoController extends Controller
                     if($contadorNumeros == 15) break;
                 } 
             }
-            $cartonesSmulados[] = [
+            $cartonesSmulados['data']['serie'."$carton->numero_serie"][] = [
                 "tipo" => $carton->tipo,
-                "codigo" => $carton->codigo,
+                "codigo" => $carton->numero_serie,
                 "sorteo" => $i-$contadorNumeros
             ];
             
         }
 
-        return $cartonesSmulados;
+        return $cartonesSmulados;*/
 
         /*CHECK LINEA*/
 
@@ -260,7 +293,7 @@ class SorteoController extends Controller
             }
 
             $cartonesSmulados[] = [
-                "tipo" => $carton->tipo,
+                "tipo" => $carton->tipo.' - '.$carton->numero_serie,
                 "linea_1" => $linea_1_contador,
                 "linea_2" => $linea_2_contador,
                 "linea_3" => $linea_3_contador

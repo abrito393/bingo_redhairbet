@@ -57,7 +57,7 @@
 <audio id="audio_57"><source src="{{asset('audio/57.oga')}}" type="audio/ogg"></audio>
 <audio id="audio_58"><source src="{{asset('audio/58.oga')}}" type="audio/ogg"></audio>
 <audio id="audio_59"><source src="{{asset('audio/59.oga')}}" type="audio/ogg"></audio>
-<audio id="audio_60"><source src="{{asset('audio/60.oga')}}" type="audio/ogg"></audio>
+<audio id="audio_60"><source src="{{asset('audio/60.ogg')}}" type="audio/ogg"></audio>
 <audio id="audio_61"><source src="{{asset('audio/61.oga')}}" type="audio/ogg"></audio>
 <audio id="audio_62"><source src="{{asset('audio/62.oga')}}" type="audio/ogg"></audio>
 <audio id="audio_63"><source src="{{asset('audio/63.oga')}}" type="audio/ogg"></audio>
@@ -95,4 +95,7 @@
 
 <audio id="check_linea"><source src="{{asset('audio/especiales/check_linea.oga')}}" type="audio/ogg"></audio>
 <audio id="check_bingo"><source src="{{asset('audio/especiales/check_bingo.oga')}}" type="audio/ogg"></audio>
+
+<audio id="linea_incorrecta"><source src="{{asset('audio/especiales/linea_incorrecta.ogg')}}" type="audio/ogg"></audio>
+<audio id="bingo_incorrecto"><source src="{{asset('audio/especiales/bingo_incorrecto.ogg')}}" type="audio/ogg"></audio>
 
