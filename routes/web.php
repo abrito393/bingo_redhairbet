@@ -42,10 +42,16 @@ Route::get('/SimulateGame', 'SorteoController@SimulateGame')->name('SimulateGame
 	//ADMIN - SORTEOS
 
 	Route::group(['prefix' => 'admin/'], function () {
+		
         Route::get('sorteolist', 'SorteoController@sorteolist')->name('sorteolist.index');
         Route::get('sorteoedit/{id?}', 'SorteoController@sorteoedit')->name('sorteoedit.edit');
         Route::get('sorteodelete/{id?}', 'SorteoController@sorteodelete')->name('sorteodelete.delete');
+		Route::get('sorteo/create', 'SorteoController@create')->name('sorteo.create');
+		Route::post('sorteo/save', 'SorteoController@PlayGame')->name('sorteo.save');
+		Route::get('sorteo/play/{id?}', 'SorteoController@play')->name('sorteo.play');
     });
+
+	Route::get('/administrador', 'SorteoController@sorteolist')->name('admin');;
 
 /*END GAME*/
 

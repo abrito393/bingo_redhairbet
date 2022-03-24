@@ -9,84 +9,99 @@ use App\Http\Controllers\CartonController;
 class SorteoController extends Controller
 {
 
+    public function create(Request $request)
+    {
+        return view("admin.create");
+    }
+
+    public function play($id)
+    {
+        header("Location: http://localhost:8888/bingo?sorteo=".$id);
+        exit();
+    }
+
     public function PlayGame(Request $request)
     {
         //set_time_limit(300);
-
+        $numeros = [];
         $GenerarCartones = new CartonController();
-        $dividirNumeros = array_chunk($request->numeros, 9);
+        for ($i=0; $i < 90; $i++) { 
+            array_push($numeros,strval($i+1));
+        }
+        shuffle($numeros);
+        $dividirNumeros = array_chunk($numeros, 9);
         $numeros_sorteados = [];
+        
         foreach ($dividirNumeros as $key => $value) {
             ksort($dividirNumeros[$key]);
         }
-
-
 
         foreach ($dividirNumeros as $dividirNumerosChunl ) {
             foreach ($dividirNumerosChunl as $dividirNumerosSingle) {
                 $numeros_sorteados[] = $dividirNumerosSingle;
             } 
-        }
-        
+        }      
 
         /*Nuevo sorteo */
-            $sorteo = new sorteo();
-            $sorteo->codigo = time();
-            $sorteo->status = "success";
-            $sorteo->numeros_sorteados = json_encode(($numeros_sorteados));
-            $sorteo->save();
+        $sorteo = new sorteo();
+        $sorteo->codigo = time();
+        $sorteo->status = "success";
+        $sorteo->numeros_sorteados = json_encode($numeros_sorteados);
+        $sorteo->save();
         /*Fin Nuevo sorteo */
 
 
         /*Generar Cartones*/
-            for ($i=0; $i < 8; $i++) { 
-                /*Genera el carton*/
-                $carton_completo = $GenerarCartones::GenerarCarton($request,90,5);
-                $carton_divido = array_chunk($carton_completo,9);
-                if($this->checkCarton(json_encode($carton_completo),$sorteo->numeros_sorteados) > 52){
-                    /*Guarda en la Base de datos*/
-                    $carton = new cartones();
-                    $carton->codigo = $i+1;
-                    $carton->numeros = json_encode($carton_completo);
-                    $carton->linea_1 = json_encode($carton_divido[0]);
-                    $carton->linea_2 = json_encode($carton_divido[1]);
-                    $carton->linea_3 = json_encode($carton_divido[2]);
-                    $carton->sorteo_id = $sorteo->id;
-                    $carton->tipo = 'normal';
-                    $carton->save();
-                }
+        for ($i=0; $i < (int)$request->nCartones; $i++) { 
+            /*Genera el carton*/
+            $carton_completo = $GenerarCartones::GenerarCarton($request,90,5);
+            $carton_divido = array_chunk($carton_completo,9);
+            if($this->checkCarton(json_encode($carton_completo),$sorteo->numeros_sorteados) > 52){
+                /*Guarda en la Base de datos*/
+                $carton = new cartones();
+                $carton->codigo = $i+1;
+                $carton->numeros = json_encode($carton_completo);
+                $carton->linea_1 = json_encode($carton_divido[0]);
+                $carton->linea_2 = json_encode($carton_divido[1]);
+                $carton->linea_3 = json_encode($carton_divido[2]);
+                $carton->sorteo_id = $sorteo->id;
+                $carton->tipo = 'normal';
+                $carton->save();
             }
+        }
         /*Fin Generar Cartones */
             $count = $carton->codigo;
             $count++;
+        
         /*Generar Series Cartones*/
-            for ($i=0; $i < 20; $i++) { 
-                /*Genera el cartones de la serie*/
-                $GenerarCartones = new CartonController();
-                $serie_generadas = $GenerarCartones::GenerarSerie($sorteo->id);
-                while ($serie_generadas == 101) {
-                    $serie_generadas = $GenerarCartones::GenerarSerie($sorteo->id);
-                }
-                foreach ($serie_generadas as $serie ) {
-                    /*Guarda en la Base de datos*/
-                    $carton_divido = array_chunk($serie,9);
-                    $carton = new cartones();
-                    $carton->codigo = $count;
-                    $carton->numeros = json_encode($serie);
-                    $carton->linea_1 = json_encode($carton_divido[0]);
-                    $carton->linea_2 = json_encode($carton_divido[1]);
-                    $carton->linea_3 = json_encode($carton_divido[2]);  
-                    $carton->sorteo_id = $sorteo->id;
-                    $carton->tipo = 'serie';
-                    $carton->numero_serie = $i;
-                    $carton->save();
-                    $count++;
-                }
-            }
+            // for ($i=0; $i < 20; $i++) { 
+            //     /*Genera el cartones de la serie*/
+            //     $GenerarCartones = new CartonController();
+            //     $serie_generadas = $GenerarCartones::GenerarSerie($sorteo->id);
+            //     while ($serie_generadas == 101) {
+            //         $serie_generadas = $GenerarCartones::GenerarSerie($sorteo->id);
+            //     }
+            //     foreach ($serie_generadas as $serie ) {
+            //         /*Guarda en la Base de datos*/
+            //         $carton_divido = array_chunk($serie,9);
+            //         $carton = new cartones();
+            //         $carton->codigo = $count;
+            //         $carton->numeros = json_encode($serie);
+            //         $carton->linea_1 = json_encode($carton_divido[0]);
+            //         $carton->linea_2 = json_encode($carton_divido[1]);
+            //         $carton->linea_3 = json_encode($carton_divido[2]);  
+            //         $carton->sorteo_id = $sorteo->id;
+            //         $carton->tipo = 'serie';
+            //         $carton->numero_serie = $i;
+            //         $carton->save();
+            //         $count++;
+            //     }
+            // }
         /*Generar Series Cartones*/
         
-
-        return ["status" => 'success', "msg" => "!Play Game¡" , "numeros" => $request->numeros , "sorte_id" => $sorteo->id];
+        header("Location: http://localhost:8888/bingo?sorteo=".$sorteo->id);
+        exit();
+        //return ["status" => 'success', "msg" => "!Play Game¡" , "numeros" => $request->numeros , "sorte_id" => $sorteo->id];
     }
 
     public function ViewCartones($id)

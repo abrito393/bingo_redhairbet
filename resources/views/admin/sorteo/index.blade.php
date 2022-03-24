@@ -15,7 +15,7 @@
                 <i class="fa fa-table"></i> Listado
             </div>
             <div class="col-lg-12" align="right"><br>
-                <a href="" class="btn btn-primary btn-xs ">
+                <a href="{{route('sorteo.create')}}" class="btn btn-primary btn-xs ">
                     <i class=""></i> Nuevo 
                 </a>
             </div>
@@ -33,11 +33,11 @@
                             @foreach($data as $dat)
                                 <tr>
                                     <td >
-                                        {{$dat->nombre}}
+                                        Sorteo #{{$dat->id}}
                                     </td>
                                     <td>
-                                        <a href="{{route('sorteoedit.edit',$dat->id)}}" class="btn btn-success btn-xs purple">
-                                            <i class="fa fa-eye"></i> Editar
+                                        <a href="{{route('sorteo.play',$dat->id)}}" class="btn btn-info btn-xs purple">
+                                            <i class="fa fa-play"></i> Jugar
                                         </a>
                                         <a href="{{route('sorteodelete.delete',$dat->id)}}" class="btn btn-danger btn-xs purple">
                                             <i class="fa fa-trash"></i> Eliminar

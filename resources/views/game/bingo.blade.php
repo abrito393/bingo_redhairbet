@@ -80,7 +80,7 @@
 
 		<div class="container" align="center" style="padding: 0.5rem;">
 			@if(isset($numero_sorteo) && $numero_sorteo == 0)
-				<button type="button" id="inicializar" class="btn btn-primary">INICIALIZAR</button>
+				<!--<button type="button" id="inicializar" class="btn btn-primary">INICIALIZAR</button>-->
 			@endif
 			<button type="button" id="play" class="btn btn-black">JUGAR</button>
 			<!--<button type="button" id="stop" class="btn btn-danger">DETENER</button>-->
@@ -90,7 +90,8 @@
 			<button type="button" class="btn btn-warning" id="check_line" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">PAUSAR</button>
 			<button type="button" id="GenerateSeries" class="btn btn-success">SERIES</button>
 			<!--<button type="button" id="sonido" class="btn btn-success">TEST SONIDO</button>-->
-			<button type="button" id="GenerateCatones" class="btn btn-danger">CARTONES </button> 
+			<button type="button" id="GenerateCatones" class="btn btn-danger">CARTONES </button>
+			<button type="button" id="administrador" class="btn btn-dark">ADMINISTRADOR </button> 
 			<button type="button" id="backGame" class="btn ">REGRESAR </button>  
 		</div>
 

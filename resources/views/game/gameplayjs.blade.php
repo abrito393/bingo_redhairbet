@@ -37,6 +37,11 @@
 				
 		}
 
+		
+		$("#administrador").click(function(){
+			window.location.href = "/administrador";
+		});
+
 	 	$("#play").click(function(){
 			$("#play").hide();
 		});

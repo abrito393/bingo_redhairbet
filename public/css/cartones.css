@@ -1,0 +1,47 @@
+@media print {
+    .page-break { 
+        page-break-before : always;
+    }
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 0.7rem;
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+caption {
+    color: #6c757d; 
+    text-align: center; 
+    caption-side: top; 
+    border: 1px solid black;
+    padding-top: 0; 
+    padding-bottom: 0;
+}
+
+#numberBingo{
+    position: relative;
+    top: -2.6rem;
+    left: 8.3875rem;
+    font-weight: bold;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.grid-item {
+    text-align: center;
+    height: 8.7647cm;
+    margin-right: 3px;
+} 
+body{
+    margin: 0px;
+    position: relative;
+}
