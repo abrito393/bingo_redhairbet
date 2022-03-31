@@ -36,7 +36,7 @@
 
 	/* indicamos el salto de pagina */
 		.saltoDePagina{
-			height: 23.560rem;
+			height: 517px;
 		}
 	
 
@@ -104,7 +104,6 @@
 								@endif
 							@endfor
 						</tr>
-						<br>
 					</table>
 				</div>
 				<?php $x++;$saltoLinea++;?>

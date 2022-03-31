@@ -6,6 +6,8 @@
 		var token = $( "input[name='_token']" ).val();
 		var numero_generado;
 		var numero_actual = '0';
+		var segundos_espera = parseInt("{{$configuracion->segundos_espera}}");
+		console.log(segundos_espera);
 
 		@if(isset($numero_sorteo) && $numero_sorteo != 0)
 			var sorteo_id = parseInt("{{$numero_sorteo}}");
@@ -275,7 +277,7 @@
 
 		function PlayGame() {
 			GenerarNumero();
-			VarGame = setInterval(GenerarNumero, 9000);
+			VarGame = setInterval(GenerarNumero, segundos_espera);
 			$("#numeros_sorteados").show();
 			console.log('Star Game');
 		}

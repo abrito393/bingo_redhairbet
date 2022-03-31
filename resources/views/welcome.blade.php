@@ -48,31 +48,6 @@ z-index: 999999">
                         <i class="fa fa-bars text-white"></i>
                     </span>
                 </div>
-
-                <div class="topnav dropdown-menu-right ml-auto">
-                    <div class="btn-group">
-                        <div class="user-settings no-bg">
-                            <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
-                                <img src="{!! asset('admin/img/admin.jpg') !!}" class="admin_img2 rounded-circle avatar-img" alt="avatar"> <strong>Aquiles</strong>
-                                <span class="fa fa-sort-down white_bg"></span>
-                            </button>
-                            <div class="dropdown-menu admire_admin">
-                                <div class="popover-header">Opciones</div>
-                                <a class="dropdown-item" href="#"><i class="fa fa-cogs"></i>
-                                    Account Settings</a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-user"></i> User Status
-                                </a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-envelope"></i>
-                                    Inbox</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-lock"></i>
-                                    Lock Screen</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>
-                                    Log Out</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.container-fluid -->
         </nav>

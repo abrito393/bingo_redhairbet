@@ -39,6 +39,9 @@
                                         <a href="{{route('sorteo.play',$dat->id)}}" class="btn btn-info btn-xs purple">
                                             <i class="fa fa-play"></i> Jugar
                                         </a>
+                                        <a href="{{route('sorteo.reset',$dat->id)}}" class="btn btn-primary btn-xs purple">
+                                            <i class="fa fa-reset"></i> Reiniciar
+                                        </a>
                                         <a href="{{route('sorteodelete.delete',$dat->id)}}" class="btn btn-danger btn-xs purple">
                                             <i class="fa fa-trash"></i> Eliminar
                                         </a>

@@ -45,10 +45,15 @@ Route::get('/SimulateGame', 'SorteoController@SimulateGame')->name('SimulateGame
 		
         Route::get('sorteolist', 'SorteoController@sorteolist')->name('sorteolist.index');
         Route::get('sorteoedit/{id?}', 'SorteoController@sorteoedit')->name('sorteoedit.edit');
+		Route::get('sorteo/reset/{id?}', 'SorteoController@reset')->name('sorteo.reset');
         Route::get('sorteodelete/{id?}', 'SorteoController@sorteodelete')->name('sorteodelete.delete');
 		Route::get('sorteo/create', 'SorteoController@create')->name('sorteo.create');
 		Route::post('sorteo/save', 'SorteoController@PlayGame')->name('sorteo.save');
 		Route::get('sorteo/play/{id?}', 'SorteoController@play')->name('sorteo.play');
+
+		//Configuracion
+		Route::get('configuracion', 'ConfiguracionController@index')->name('configuracion.index');
+		Route::get('configuracion/update', 'ConfiguracionController@update')->name('configuracion.update');
     });
 
 	Route::get('/administrador', 'SorteoController@sorteolist')->name('admin');;

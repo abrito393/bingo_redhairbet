@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\cartones;
 use App\sorteo;
+use App\configuracion;
 use App\Http\Controllers\CartonController;
 class CartonController extends Controller
 {
@@ -36,7 +37,7 @@ class CartonController extends Controller
     {
         $sorteo = 0;
         if(isset($request->sorteo)) $sorteo = $request->sorteo;
-        return view("game.bingo")->with("numero_sorteo",$sorteo);
+        return view("game.bingo")->with("numero_sorteo",$sorteo)->with('configuracion',configuracion::first());
     }
 
     public function searchCarton(Request $request)

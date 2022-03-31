@@ -12,22 +12,16 @@
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="card m-t-35">
             <div class="card-header bg-white">
-                <i class="fa fa-table"></i> Crear nuevo sorteo
+                 Configuracion
             </div>
             <div class="card-body">
-                <form role="form" action="{{ route('sorteo.save') }}" method="POST">
+                <form role="form" action="{{ route('configuracion.update') }}" method="PUT">
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group">
-                                <label>Numero de cartones a generar</label>
-                                <input type="number" min="1" step="1" class="form-control" name="nCartones" value="0" >
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Numero de series a generar</label>
-                                <input type="number" min="1" step="1" class="form-control" name="nSeries" value="0" >
+                                <label>Segundo de espera entre numero y numero</label>
+                                <input type="number" min="1000"  class="form-control" name="segundos_espera" value={{$data->segundos_espera}} >
                             </div>
                         </div>
                     </div>
